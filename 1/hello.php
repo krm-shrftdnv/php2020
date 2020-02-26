@@ -1,4 +1,5 @@
 <?php
+$_SERVER['QUERY_STRING'];
 $code = $_REQUEST['code'];
 $input = $_REQUEST['input'];
 $output = "";
@@ -10,10 +11,8 @@ for ($i = 0; $i < sizeof($cells); $i++) {
 
 $arr = [];
 
-echo $code."<br>";
 
 for ($i = 0, $j = 0, $input_index = 0; $i < strlen($code); $i++) {
-    echo $code[$i];
     switch ($code[$i]) {
         case ">":
             $j++;
