@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Testing Logger</title>
+</head>
+<body>
+<form action="log.php" method="post">
+    <span>Enter your text</span><br>
+    <textarea name="text"></textarea><br>
+    <span>Choose, where you want to execute your text</span><br>
+    <select id="logger_type" name="logger_type">
+        <option selected>Select logger type</option>
+        <option>File</option>
+        <option>Browser</option>
+    </select><br>
+    <span hidden id="message">Invalid parameter was selected</span><br>
+    <input type="text" id="file_name" name="file_name" hidden placeholder="File name"><br>
+    <span hidden id="time_message">Choose time format</span><br>
+    <select id="time_format" hidden name="time_format">
+        <option>Time</option>
+        <option>Date and time</option>
+        <option selected>Nothing</option>
+    </select><br>
+    <input type="submit" id="submit" hidden>
+</form>
+<script>
+    var logger_type = document.getElementById("logger_type");
+    logger_type.onchange = function () {
+        switch (logger_type.value) {
+            case "Select logger type":{
+                document.getElementById("message").removeAttribute("hidden");
+                document.getElementById("message").style.color = "red";
+                document.getElementById("submit").setAttribute("hidden","true");
+                break;
+            }
+            case "File":{
+                document.getElementById("time_message").setAttribute("hidden","true");
+                document.getElementById("time_format").setAttribute("hidden","true");
+                document.getElementById("file_name").removeAttribute("hidden");
+                document.getElementById("submit").removeAttribute("hidden");
+                break;
+            }
+            case "Browser":{
+                document.getElementById("file_name").setAttribute("hidden","true");
+                document.getElementById("time_format").removeAttribute("hidden");
+                document.getElementById("time_message").removeAttribute("hidden");
+                document.getElementById("submit").removeAttribute("hidden");
+                break;
+            }
+        }
+    }
+</script>
+</body>
+</html>
