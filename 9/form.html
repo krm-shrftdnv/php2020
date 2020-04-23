@@ -37,12 +37,14 @@
             case "File":{
                 document.getElementById("time_message").setAttribute("hidden","true");
                 document.getElementById("time_format").setAttribute("hidden","true");
+                document.getElementById("message").setAttribute("hidden","true");
                 document.getElementById("file_name").removeAttribute("hidden");
                 document.getElementById("submit").removeAttribute("hidden");
                 break;
             }
             case "Browser":{
                 document.getElementById("file_name").setAttribute("hidden","true");
+                document.getElementById("message").setAttribute("hidden","true");
                 document.getElementById("time_format").removeAttribute("hidden");
                 document.getElementById("time_message").removeAttribute("hidden");
                 document.getElementById("submit").removeAttribute("hidden");
