@@ -1,0 +1,10 @@
+{
+  "name": "lab42_practice_stud/package_name",
+  "minimum-stability": "dev",
+  "license": "proprietary",
+  "require": {
+    "psr/log": "^1.1@dev",
+    "squizlabs/php_codesniffer": "^3.0@dev",
+    "ext-json": "*"
+  }
+}
