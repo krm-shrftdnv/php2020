@@ -1,18 +1,18 @@
 <?php
 
-include("form4.html");
+//include("form4.html");
 require("random_and_test.php");
-
-if (!isset ($_REQUEST['text'])) {
-    return;
-}
-
-$text = $_REQUEST['text'];
+//
+//if (!isset ($_REQUEST['text'])) {
+//    return;
+//}
+//
+//$text = $_REQUEST['text'];
 
 //for testing
-//$text = "some string 23
-//another string 24
-//and another one 3";
+$text = "some string 23
+another string 24
+and another one 3";
 
 $strings = explode(PHP_EOL, $text);
 $probabilities = [];
@@ -51,7 +51,6 @@ $output = json_encode($json, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
 echo "<pre>";
 echo($output);
 echo PHP_EOL;
+echo PHP_EOL;
 func($strings, $probabilities);
 echo "</pre>";
-
-?>

@@ -2,19 +2,33 @@
 
 function func($strings, $probabilities)
 {
-    $arr = array_fill(0, 3, 0);
-    $json = [];
+    $strongs = [];
 
-    for ($i = 0; $i < 10000; $i++) {
-        foreach (generator($strings, $probabilities) as $string)
-            $arr[array_search($string, $strings)]++;
+    foreach ($strings as $string) {
+        $strongs[] = [
+            'string' => $string,
+            'count' => 0
+        ];
     }
 
-    for ($i = 0; $i < sizeof($strings); $i++) {
+    for ($i = 0; $i < 10000; $i++) {
+        foreach (generator($strings, $probabilities) as $string) {
+            foreach ($strongs as &$strong) {
+                if ($strong['string'] == $string) {
+                    $strong['count']++;
+                }
+            }
+        }
+
+    }
+
+    $json = [];
+
+    foreach ($strongs as &$strong) {
         $object = [
-            "text" => $strings[$i],
-            "count" => $arr[$i],
-            "calculated_probability" => round(($arr[$i] / 10000), 2)
+            "text" => $strong['string'],
+            "count" => $strong['count'],
+            "calculated_probability" => round(($strong['count'] / 10000), 2)
         ];
 
         $json[] = $object;
@@ -27,22 +41,32 @@ function func($strings, $probabilities)
 
 function generator($strings, $probabilities)
 {
-
-    asort($probabilities);
+    $strongs = [];
+    for ($i = 0; $i < sizeof($strings); $i++) {
+        $strongs[] = [
+            'string' => $strings[$i],
+            'prob' => $probabilities[$i] * 100
+        ];
+    }
 
     $prob = mt_rand(0, 100);
-    $i = 0;
-    foreach ($probabilities as $pro) {
-        if ($prob - ($pro * 100) >= 0) {
-            continue;
-        } else {
-            $i = array_search($pro, $probabilities);
-            break;
+    $max = 0;
+    $maxProbString = "";
+    $min = 100;
+    $yString = "";
+    foreach ($strongs as $strong) {
+        if (($strong['prob'] >= $prob) && ($strong['prob'] <= $min)) {
+            $min = $strong['prob'];
+            $yString = $strong['string'];
+        }
+        if ($strong['prob'] >= $max) {
+            $max = $strong['prob'];
+            $maxProbString = $strong['string'];
         }
     }
 
-    yield $strings[$i];
+    if ($min != 100) {
+        yield $yString;
+    } else yield $maxProbString;
 
 }
-
-?>
